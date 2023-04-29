@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${USER}
+      - POSTGRES_PASSWORD=${PASSWORD}
+      - POSTGRES_DB=${NAME}
+    ports:
+      - "5455:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U ${USER} -d ${NAME}
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db_data:
