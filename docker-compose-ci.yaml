@@ -12,8 +12,7 @@ services:
         condition: service_started
 
   api:
-    build:
-      context: .
+    image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     env_file:
       - .env
     restart: always
@@ -24,12 +23,9 @@ services:
         condition: service_healthy
       migrations:
         condition: service_completed_successfully
-    volumes:
-      - todolist:todolist
 
   migrations:
-    build:
-      context: .
+    image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     depends_on:
       postgres:
         condition: service_healthy
