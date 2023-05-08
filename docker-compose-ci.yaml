@@ -2,46 +2,47 @@ version: "3.8"
 
 services:
 
-  front:
+  frontend:
     image: sermalenk/skypro-front:lesson-34
     restart: always
-    ports:
-      - 80:80
     depends_on:
-      api:
-        condition: service_started
+      - api
+    ports:
+      - "80:80"
 
   api:
     image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    restart: always
     env_file:
       - .env
-    restart: always
-    ports:
-      - 8000:8000
     depends_on:
       postgres:
-        condition: service_healthy
+        condition: service_started
       migrations:
         condition: service_completed_successfully
+    ports:
+      - "8000:8000"
 
   migrations:
     image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     depends_on:
       postgres:
         condition: service_healthy
-    command: python manage.py migrate
+    env_file:
+      - .env
+    command: sh -c "python manage.py migrate"
 
   postgres:
     image: postgres
     restart: always
+    env_file:
+      - .env
     environment:
-      - POSTGRES_USER=${USER}
-      - POSTGRES_PASSWORD=${PASSWORD}
-      - POSTGRES_DB=${NAME}
-    ports:
-      - "5455:5432"
+      POSTGRES_USER: ${USER}
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_DB: ${NAME}
     volumes:
-      - ./db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
     healthcheck:
       test: pg_isready -U ${USER} -d ${NAME}
       interval: 3s
