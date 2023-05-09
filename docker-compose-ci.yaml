@@ -11,9 +11,7 @@ services:
       - "80:80"
 
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     restart: always
     env_file:
       - .env
@@ -26,9 +24,7 @@ services:
       - "8000:8000"
 
   migrations:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     depends_on:
       postgres:
         condition: service_healthy
@@ -41,8 +37,6 @@ services:
     restart: always
     env_file:
       - .env
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: ${USER}
       POSTGRES_PASSWORD: ${PASSWORD}
