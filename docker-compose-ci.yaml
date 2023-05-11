@@ -33,18 +33,14 @@ services:
     command: sh -c "python manage.py migrate"
 
   postgres:
-    image: postgres
+    image: postgres:latest
     restart: always
     env_file:
       - .env
-    environment:
-      POSTGRES_USER: ${USER}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_DB: ${NAME}
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U ${USER} -d ${NAME}
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
       interval: 3s
       timeout: 5s
       retries: 10
