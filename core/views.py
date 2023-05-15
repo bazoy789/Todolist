@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model, login, logout
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
-from todolist.core.serializers import RegistrationSerializer, LoginSerializer, UserSerializer, UpdatePasswordSerializer
+from serializers import RegistrationSerializer, LoginSerializer, UserSerializer, UpdatePasswordSerializer
 
 USER_MODEL = get_user_model()
 
