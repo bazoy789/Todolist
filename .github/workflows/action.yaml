@@ -21,12 +21,6 @@ jobs:
       - name: render config
         run: |
           mkdir deploy
-          export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          export DB_USER=${{ secrets.DB_USER }}
-          export DB_NAME=${{ secrets.DB_NAME }}
-          export IMAGE_TAG=${{ secrets.IMAGE_TAG }}
-          export SOCIAL_AUTH_VK_OAUTH2_KEY=${{ secrets.SOCIAL_AUTH_VK_OAUTH2_KEY }}
-          export SOCIAL_AUTH_VK_OAUTH2_SECRET=${{ secrets.SOCIAL_AUTH_VK_OAUTH2_SECRET }}
           cat docker-compose-ci.yaml | envsubst > deploy/docker-compose.yaml
           cat .env_deploy | envsubst > deploy/.env
       - name: copy files
