@@ -1,7 +1,7 @@
 
 from django.urls import path
 
-from views import RegistrationView, LoginView, ProfileView, UpdatePasswordView
+from todolist.core.views import RegistrationView, LoginView, ProfileView, UpdatePasswordView
 
 urlpatterns = [
     path("sinnup/", RegistrationView.as_view(), name="sinnup"),
