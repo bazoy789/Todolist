@@ -1,5 +1,5 @@
 
-from django.urls import path, include
+from django.urls import path
 
 from views import RegistrationView, LoginView, ProfileView, UpdatePasswordView
 
