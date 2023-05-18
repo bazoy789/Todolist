@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   frontend:
-    image: sermalenk/skypro-front:lesson-34
+    image: sermalenk/skypro-front:lesson-35
     restart: always
     depends_on:
       - api
@@ -30,7 +30,7 @@ services:
         condition: service_healthy
     env_file:
       - .env
-    command: sh -c "python manage.py migrate"
+    command: sh -c "python3 manage.py migrate"
 
   postgres:
     image: postgres:latest
