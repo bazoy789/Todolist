@@ -31,7 +31,7 @@ class Goal(BaseModel):
         critical = 4, "Критический"
 
     title = models.CharField(verbose_name="Название", max_length=255)
-    descriptions = models.TextField(blunk=True)
+    descriptions = models.TextField(blank=True)
     category = models.ForeignKey(GoalCategory, on_delete=models.PROTECT)
     due_date = models.DateField(null=True, blank=True)
     user = models.ForeignKey(User, verbose_name="Автор", on_delete=models.PROTECT)
