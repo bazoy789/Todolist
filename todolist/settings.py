@@ -15,6 +15,8 @@ from pathlib import Path
 import environ
 import os
 
+import rest_framework.pagination
+
 env = environ.Env(
     DEBUG=(bool, True)
 )
@@ -48,7 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     "rest_framework",
     "social_django",
+    "django-filters",
     "core",
+    "goals",
 ]
 
 MIDDLEWARE = [
@@ -157,3 +161,8 @@ SOCIAL_AUTH_URL_NAMESPACE = "social"
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/categories"
 SOCIAL_AUTH_LOGIN_ERROR_URL = "/login-error/"
 SOCIAL_AUTH_USER_MODEL = "core.User"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+}
