@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     "rest_framework",
     "social_django",
-    "django-filters",
+    "django_filters",
     "core",
     "goals",
 ]
