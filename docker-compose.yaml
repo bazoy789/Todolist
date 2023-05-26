@@ -2,39 +2,39 @@ version: "3.8"
 
 services:
 
-  frontend:
-    image: sermalenk/skypro-front:lesson-36
-    restart: always
-    depends_on:
-      - api
-    ports:
-      - "80:80"
-
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    env_file:
-      - .env
-    depends_on:
-      postgres:
-        condition: service_started
-      migrations:
-        condition: service_completed_successfully
-    ports:
-      - "8000:8000"
-
-  migrations:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      postgres:
-        condition: service_healthy
-    env_file:
-      - .env
-    command: sh -c "python manage.py migrate"
+#  frontend:
+#    image: sermalenk/skypro-front:lesson-36
+#    restart: always
+#    depends_on:
+#      - api
+#    ports:
+#      - "80:80"
+#
+#  api:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: always
+#    env_file:
+#      - .env
+#    depends_on:
+#      postgres:
+#        condition: service_started
+#      migrations:
+#        condition: service_completed_successfully
+#    ports:
+#      - "8000:8000"
+#
+#  migrations:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#    env_file:
+#      - .env
+#    command: sh -c "python manage.py migrate"
 
   postgres:
     image: postgres
@@ -50,7 +50,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U ${USER} -d ${NAME}
+      test: pg_isready -U ${USER} ${NAME}
       interval: 3s
       timeout: 5s
       retries: 10
