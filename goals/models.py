@@ -45,6 +45,10 @@ class Goal(BaseModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = "Цель"
+        verbose_name_plural = "Цели"
+
 
 class GoalComments(BaseModel):
     user = models.ForeignKey(User, verbose_name="Автор", on_delete=models.PROTECT)
