@@ -1,5 +1,5 @@
 
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, permissions, filters, pagination
 from django_filters.rest_framework import DjangoFilterBackend
 
 from goals.filters import GoalFilter
@@ -21,6 +21,7 @@ class GoalListView(generics.ListAPIView):
     ordering_fields = ["title", "created"]
     ordering = ["title"]
     search_fields = ["title", "description"]
+    pagination_class = pagination.LimitOffsetPagination
 
     def get_queryset(self):
         return Goal.objects.select_related("user").filter(user=self.request.user, category__is_deleted=False).exclude(status=Goal.Status.archived)

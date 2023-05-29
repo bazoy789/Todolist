@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': env.str("POSTGRES_DB"),
         "USER": env.str("POSTGRES_USER"),
         "PASSWORD": env.str("POSTGRES_PASSWORD"),
-        "HOST": env.str("POSTGRES_HOST"),
+        "HOST": "localhost",#env.str("POSTGRES_HOST"),
         "PORT": "5432",
     }
 }
@@ -161,8 +161,3 @@ SOCIAL_AUTH_URL_NAMESPACE = "social"
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/categories"
 SOCIAL_AUTH_LOGIN_ERROR_URL = "/login-error/"
 SOCIAL_AUTH_USER_MODEL = "core.User"
-
-
-REST_FRAMEWORK = {
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-}

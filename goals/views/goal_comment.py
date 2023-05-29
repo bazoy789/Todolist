@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics, filters, permissions
+from rest_framework import generics, filters, permissions, pagination
 
 from goals.models import GoalComments
 from goals.permissions import GoalCommentPermission
@@ -17,6 +17,7 @@ class GoalCommentListView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ["goal"]
     ordering = ["-created"]
+    pagination_class = pagination.LimitOffsetPagination
 
     def get_queryset(self):
         return GoalComments.objects.select_related("user").filter(user=self.request.user)
