@@ -12,7 +12,7 @@ class GoalCategoryCreateView(generics.CreateAPIView):
 
 
 class GoalCategoryListView(generics.ListAPIView):
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     serializer_class = GoalCategoryWithUserSerializer
     filter_backends = [filters.OrderingFilter, filters.SearchFilter]
     ordering_fields = ["title", "created"]
