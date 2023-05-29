@@ -25,7 +25,7 @@ class GoalListView(generics.ListAPIView):
 
     def get_queryset(self):
         return Goal.objects.select_related("user").filter(
-            user=self.request.user).exclude(status=Goal.Status.archived)
+            user=self.request.user, category__is_deleted=False).exclude(status=Goal.Status.archived)
 
 
 class GoalDetailView(generics.RetrieveUpdateDestroyAPIView):
