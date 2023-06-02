@@ -1,6 +1,6 @@
 from django.db import transaction
 from django.db.models import QuerySet
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, permissions, filters, pagination
 
 from goals.models import BoardParticipant, Board, Goal
 from goals.permissions import BoardPermission
@@ -22,6 +22,7 @@ class BoardListView(generics.ListAPIView):
     serializer_class = BoardSerializer
     filter_backends = [filters.OrderingFilter]
     ordering = ["title"]
+    pagination_class = pagination.LimitOffsetPagination
 
     def get_queryset(self) -> QuerySet[Board]:
         return Board.objects.filter(participants__user=self.request.user).exclude(is_deleted=True)
