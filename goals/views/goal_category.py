@@ -21,7 +21,7 @@ class GoalCategoryListView(generics.ListAPIView):
     pagination_class = pagination.LimitOffsetPagination
 
     def get_queryset(self):
-        return GoalCategory.objects.filter(board__paticipants__user=self.request.user).exclude(is_deleted=True)
+        return GoalCategory.objects.filter(board__participants__user=self.request.user).exclude(is_deleted=True)
 
 
 class GoalCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):

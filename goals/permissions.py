@@ -29,7 +29,7 @@ class GoalPermission(IsAuthenticated):
     def has_object_permission(self, request: Request, view: GenericAPIView, obj: Goal) -> bool:
         _filters: dict[str, Any] = {"user": request.user, "board": obj.category.board}
         if request.method not in SAFE_METHODS:
-            _filters["role__in"] = [BoardParticipant.Role.owner,BoardParticipant.Role.writer]
+            _filters["role__in"] = [BoardParticipant.Role.owner, BoardParticipant.Role.writer]
 
         return BoardParticipant.objects.filter(**_filters).exists()
 
