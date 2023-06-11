@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   frontend:
-    image: sermalenk/skypro-front:lesson-37
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     depends_on:
       - api
@@ -24,6 +24,24 @@ services:
         condition: service_completed_successfully
     ports:
       - "8000:8000"
+    volumes:
+      - api:/api
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_started
+      migrations:
+        condition: service_completed_successfully
+    command: sh -c "python manage.py runbot"
+    volumes:
+      - bot:/bot_voluem
 
   migrations:
     build:
@@ -57,3 +75,5 @@ services:
 
 volumes:
   db_data:
+  api:
+  bot:

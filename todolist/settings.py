@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "django_filters",
     "core",
     "goals",
+    "bot",
 ]
 
 MIDDLEWARE = [
@@ -165,3 +166,5 @@ SOCIAL_AUTH_URL_NAMESPACE = "social"
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/categories"
 SOCIAL_AUTH_LOGIN_ERROR_URL = "/login-error/"
 SOCIAL_AUTH_USER_MODEL = "core.User"
+
+BOT_TOKEN = env.str("TG_TOKEN")
