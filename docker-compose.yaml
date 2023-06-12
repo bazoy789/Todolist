@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   frontend:
-    image: sermalenk/skypro-front:lesson-35
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     depends_on:
       - api
@@ -24,6 +24,24 @@ services:
         condition: service_completed_successfully
     ports:
       - "8000:8000"
+    volumes:
+      - api:/api
+
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_started
+      migrations:
+        condition: service_completed_successfully
+    command: sh -c "python manage.py runbot"
+    volumes:
+      - bot:/bot_voluem
 
   migrations:
     build:
@@ -44,16 +62,18 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: ${USER}
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_DB: ${NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U ${USER} -d ${NAME}
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
       interval: 3s
       timeout: 5s
       retries: 10
 
 volumes:
   db_data:
+  api:
+  bot:

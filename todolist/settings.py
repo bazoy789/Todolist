@@ -48,7 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     "rest_framework",
     "social_django",
+    "django_filters",
     "core",
+    "goals",
+    "bot",
 ]
 
 MIDDLEWARE = [
@@ -119,10 +122,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -142,6 +141,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
+}
+
 AUTH_USER_MODEL = "core.User"
 
 AUTHENTICATION_BACKENDS = (
@@ -157,3 +160,5 @@ SOCIAL_AUTH_URL_NAMESPACE = "social"
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/categories"
 SOCIAL_AUTH_LOGIN_ERROR_URL = "/login-error/"
 SOCIAL_AUTH_USER_MODEL = "core.User"
+
+BOT_TOKEN = env.str("TG_TOKEN")

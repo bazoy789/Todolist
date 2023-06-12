@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   frontend:
-    image: sermalenk/skypro-front:lesson-35
+    image: sermalenk/skypro-front:lesson-38
     restart: always
     depends_on:
       - api
@@ -23,6 +23,18 @@ services:
     ports:
       - "8000:8000"
 
+  bot:
+    image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_started
+      migrations:
+        condition: service_completed_successfully
+    command: sh -c "python3 manage.py runbot"
+
   migrations:
     image: ${IMAGE_TAG}:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     depends_on:
@@ -40,7 +52,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      test: sh -c "pg_isready -U ${DB_USER} -d ${DB_NAME}"
       interval: 3s
       timeout: 5s
       retries: 10
