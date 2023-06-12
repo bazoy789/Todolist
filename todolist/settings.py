@@ -15,8 +15,6 @@ from pathlib import Path
 import environ
 import os
 
-import rest_framework.pagination
-
 env = environ.Env(
     DEBUG=(bool, True)
 )
@@ -92,7 +90,7 @@ WSGI_APPLICATION = 'todolist.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': env.str("POSTGRES_DB"),
         "USER": env.str("POSTGRES_USER"),
         "PASSWORD": env.str("POSTGRES_PASSWORD"),
@@ -123,10 +121,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 

@@ -45,7 +45,7 @@ services:
     command: sh -c "python3 manage.py migrate"
 
   postgres:
-    image: postgres
+    image: postgres:latest
     restart: always
     env_file:
       - .env
