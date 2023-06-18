@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.db import models
 
 from core.models import User
@@ -8,7 +10,7 @@ class Board(BaseModel):
     title = models.CharField(verbose_name="Название", max_length=255)
     is_deleted = models.BooleanField(verbose_name="Удалена", default=False)
 
-    def __str__(self):
+    def __str__(self) -> Any:
         return self.title
 
     class Meta:
@@ -44,7 +46,7 @@ class GoalCategory(BaseModel):
         verbose_name = "Категория"
         verbose_name_plural = "Категории"
 
-    def __str__(self):
+    def __str__(self) -> Any:
         return self.title
 
 
@@ -73,7 +75,7 @@ class Goal(BaseModel):
                                                 choices=Priority.choices,
                                                 default=Priority.medium)
 
-    def __str__(self):
+    def __str__(self) -> Any:
         return self.title
 
     class Meta:
@@ -86,5 +88,5 @@ class GoalComments(BaseModel):
     goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
     text = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> Any:
         return self.text

@@ -15,6 +15,8 @@ from pathlib import Path
 import environ
 import os
 
+import todolist.settings
+
 env = environ.Env(
     DEBUG=(bool, True)
 )

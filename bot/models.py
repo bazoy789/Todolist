@@ -10,5 +10,5 @@ class TgUser(models.Model):
     verification_code = models.CharField(max_length=50, null=True, blank=True)
 
     @staticmethod
-    def gen_verification_code():
+    def gen_verification_code() -> str:
         return BaseUserManager().make_random_password()

@@ -8,7 +8,7 @@ class Chat(BaseModel):
 
 class Message(BaseModel):
     chat: Chat
-    text: str | None = None
+    text: str
 
 
 class UpdateObj(BaseModel):

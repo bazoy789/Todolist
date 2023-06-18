@@ -20,7 +20,7 @@ class GoalCategoryListView(generics.ListAPIView):
     search_fields = ["title"]
     pagination_class = pagination.LimitOffsetPagination
 
-    def get_queryset(self):
+    def get_queryset(self) -> dict:
         return GoalCategory.objects.filter(board__participants__user=self.request.user).exclude(is_deleted=True)
 
 
@@ -29,7 +29,7 @@ class GoalCategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = GoalCategoryWithUserSerializer
     queryset = GoalCategory.objects.exclude(is_deleted=True)
 
-    def perform_destroy(self, instance: GoalCategory):
+    def perform_destroy(self, instance: GoalCategory) -> None:
         with transaction.atomic():
             instance.is_deleted = True
             instance.save(update_fields=["is_deleted"])

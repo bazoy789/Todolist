@@ -9,7 +9,7 @@ class ParticipantsInLine(admin.TabularInline):
     model = BoardParticipant
     extra = 0
 
-    def get_queryset(self, request):
+    def get_queryset(self, request: dict) -> dict:
         return super().get_queryset(request).exclude(role=BoardParticipant.Role.owner)
 
 
@@ -53,4 +53,4 @@ class GoalAdmin(admin.ModelAdmin):
             user_name=obj.user.username
         )
 
-    author_link.short_description = "Author"
+    author_link.short_description = "Author" # type: ignore[attr-defined]

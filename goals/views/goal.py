@@ -23,7 +23,7 @@ class GoalListView(generics.ListAPIView):
     search_fields = ["title", "description"]
     pagination_class = pagination.LimitOffsetPagination
 
-    def get_queryset(self):
+    def get_queryset(self) -> None:
         return Goal.objects.filter(
             category__board__participants__user=self.request.user,
             ).exclude(status=Goal.Status.archived)

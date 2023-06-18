@@ -1,7 +1,9 @@
 import logging
+from typing import Any
 
 import requests
 from pydantic import ValidationError
+from requests import Response
 
 from bot.tg.dc import GetUpdatesResponse, SendMessageResponse
 from todolist import settings
@@ -13,7 +15,7 @@ class TgClient:
     def __init__(self, token: str = settings.BOT_TOKEN):
         self.token = token
 
-    def get_url(self, method: str):
+    def get_url(self, method: str) -> str:
         return f"https://api.telegram.org/bot{self.token}/{method}"
 
     def get_updates(self, offset: int = 0, timeout: int = 60) -> GetUpdatesResponse:
@@ -28,7 +30,7 @@ class TgClient:
         data = self._get(method="sendMessage", chat_id=chat_id, text=text)
         return SendMessageResponse(**data)
 
-    def _get(self, method: str, **params):
+    def _get(self, method: str, **params: Any) -> Any:
         url: str = self.get_url(method)
         response = requests.get(url, params=params)
         if not response.ok:

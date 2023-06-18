@@ -19,7 +19,7 @@ class GoalCommentListView(generics.ListAPIView):
     ordering = ["-created"]
     pagination_class = pagination.LimitOffsetPagination
 
-    def get_queryset(self):
+    def get_queryset(self) -> dict:
         return GoalComments.objects.filter(goal__category__board__participants__user=self.request.user)
 
 
@@ -27,6 +27,6 @@ class GoalCommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [GoalCommentPermission]
     serializer_class = GoalCommentWithUserSerializer
 
-    def get_queryset(self):
+    def get_queryset(self) -> dict:
         return GoalComments.objects.select_related("user").filter(
             goal__category__board__participants__user=self.request.user)
