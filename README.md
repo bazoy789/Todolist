@@ -1,14 +1,15 @@
-# Планировщик задач
+# Todolist (Планировщик задач)
 
+###Description:
 Возможность поставить задачи на неделю, месяц, год, с возможностью ставить
 дедлайн по задаче.
 
+###Technologies:
+- Python
+- Django
+- DRF
+- PostgreSQL
 
-### Стек (Python-3.11, Django, Postgres)
-
-
-Запуск:
-- pip install -r requirements.txt
-- заполнить .env (NAME, USER, PASSWORD, DATABASE_URL)
-- python manage.py migrate
-- python manage.py runserver
+###Run:
+pip install -r requirements
+docker-compose up -d для локального запуска программы
